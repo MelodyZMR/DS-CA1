@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package ="com.example.ParkingService";
+option java_outer_classname = "ParkingServiceProto";
+
+package ParkingService;
+
+// Interface exported by the server.
+service ParkingService {
+// RPC method to find available parking spaces
+rpc FindAvailableParkingSpace(ParkingLotRequest) returns (ParkingLotResponse){}
+//Client Streaming RPC method to reserve parking spaces
+rpc BookParkingSpaces(stream ParkingReservationRequest) returns (ParkingReservationResponse){}
+}
+
+
+// Unary RPC method
+message ParkingLotRequest {
+string parking_lot_id = 1;
+}
+
+
+message ParkingLotResponse {
+int32 available_spaces = 1;
+int32 total_spaces = 2;
+}
+
+//Client Streaming RPC 
+message ParkingReservationRequest {
+string user_id = 1;
+string parking_lot_id = 2;
+string reservation_time = 3;
+}
+
+// Response message containing the confirmationID,reservationStatus
+message ParkingReservationResponse {
+string confirmation_id = 1;
+string reservation_status = 2;
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.BikeSharingService";
+option java_outer_classname = "BikeSharingServiceProto";
+
+package BikeSharingService;
+
+// Interface exported by the server.
+service BikeSharingService {
+rpc CheckBikeAvailability(CheckBikeAvailabilityRequest) returns (CheckBikeAvailabilityResponse) {}
+rpc ReserveAndUnlockBike(stream ReserveAndUnlockBikeRequest) returns (stream ReserveAndUnlockBikeResponse) {}
+}
+
+//Unary RPC 
+message CheckBikeAvailabilityRequest {
+string station_id = 1; // The ID of the bike station
+}
+
+message CheckBikeAvailabilityResponse {
+int32 available_bikes = 1; // The number of available bikes at the station
+}
+
+// Bi Directional Streaming PRC
+message ReserveAndUnlockBikeRequest {
+string user_id = 1; 
+string station_id =2;
+string reservation_time =3;
+}
+
+message ReserveAndUnlockBikeResponse {
+string reservation_id = 1; 
+int32 status_code = 2; // Status code indicating success or failure of the reservation
+string bike_id = 3; // The ID of the bike to unlock
+string unlock_expiration_time = 4; // The time until which the bike can be unlocked
+string update_message = 5; // A message providing status updates
+}
