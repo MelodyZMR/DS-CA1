@@ -30,7 +30,7 @@ public class SmartCityServicesRegistration {
 
             
             // Register  services
-            ServiceInfo publicTransportationServiceInfo = ServiceInfo.create("_transport._tcp.local.", "PublicTransportationService", 50052, "path=/transport");
+            ServiceInfo publicTransportationServiceInfo = ServiceInfo.create("_transport._tcp.local.", "PublicTransportationService", 50055, "path=/transport");
             jmdns.registerService(publicTransportationServiceInfo);
             System.out.println("Registered PublicTransportationService: " + InetAddress.getLocalHost() + ":" + publicTransportationServiceInfo.getPort());
       

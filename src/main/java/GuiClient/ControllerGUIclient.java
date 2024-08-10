@@ -237,28 +237,29 @@ import io.grpc.stub.StreamObserver;
    @Override
    public void actionPerformed(ActionEvent e) {
      JButton button = (JButton) e.getSource();
-     String label = button.getText();
+     String label = button.getText(); 
+     
+     switch (label) {
+     case "Get Parking Availability":
+     handlegetparkingAvailabilityResponse();
+     break;
+     case "Reserve Parking":
+     handlegetParkingReservationRequestResponse();
+     break;
+     case "Real-Time Info":
+     handlegetstopArrivalTimeResponse();
+     break;
+     case "Dispatch Vehicle":
+     handlegetDispatchVehicleResponse();
+     break;	
+     case "Check Bike Availability":
+     handleBikeSharingService1();
+     break;
+     case "Reserve and Unlock":
+     handleBikeSharingService2();
+     break;
+     }
 
-switch (label) {
-case "Get Parking Availability":
-handlegetparkingAvailabilityResponse();
-break;
-case "Reserve Parking":
-handlegetParkingReservationRequestResponse();
-break;
-case "Real-Time Info":
-handlegetstopArrivalTimeResponse();
-break;
-case "Dispatch Vehicle":
-handlegetDispatchVehicleResponse();
-break;	
-case "Check Bike Availability":
-handleBikeSharingService1();
-break;
-case "Reserve and Unlock":
-handleBikeSharingService2();
-break;
-}
 }
 
   //GRPC Client
@@ -327,7 +328,7 @@ break;
 
     private void handlegetstopArrivalTimeResponse() {
     	System.out.println("PublicTransportationService to be invoked with " + realTimeInfoRequest.getText());
-      ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
+      ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50055).usePlaintext().build();
       PublicTransportationServiceGrpc.PublicTransportationServiceBlockingStub blockingStub =PublicTransportationServiceGrpc.newBlockingStub(channel);
 
       GetRealTimeInfoRequest request = GetRealTimeInfoRequest.newBuilder()
@@ -342,7 +343,7 @@ break;
 
 
      private void handlegetDispatchVehicleResponse() {
-         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
+         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50055).usePlaintext().build();
         PublicTransportationServiceGrpc.PublicTransportationServiceBlockingStub blockingStub =PublicTransportationServiceGrpc.newBlockingStub(channel);
 
          GetRealTimeInfoRequest request = GetRealTimeInfoRequest.newBuilder()
